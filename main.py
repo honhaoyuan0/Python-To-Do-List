@@ -20,9 +20,14 @@ def delete_item(listbox: Listbox):
         lines = tasks_list_file.readlines()
     with open('D:/Projects_HHY/pythonProject - To Do List/tasks.txt', 'w') as tasks_list_file:
         for line in lines:
-            if listbox.get(ACTIVE) == line:  # Compare the selected task to delete up until the character right
-                lines.remove(line)                # before the end line character
+            if listbox.get(ACTIVE) == line:  # Compare the selected task to delete up until the character
+                lines.remove(line)
             else:
+
+                # Updates the text file itself after removing the selected task to fix the bug where when remove task
+                # button is pressed, instead of removing it will write in the whole same task list into the file again
+                # resulting in doubled the same task lists (you can try to remove the else statement here and put the
+                # .write method outside the if loop to experience this bug)
                 tasks_list_file.write(line)
 
     listbox.delete(ACTIVE)  # Visually remove the current selected task to remove
